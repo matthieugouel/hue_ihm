@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+
+    <title>Hue IHM</title>
+  </head>
+  <body>
+    <h1 class="display-4">Light information</h1>
+    <ul class="list-group">
+      {% for id, light in lights %}
+        <li class="list-group-item">
+          <label>
+          <input type="checkbox" name="{{ light.name }}" id="{{ id }}" {% if light.state.on %}checked{% endif %} onChange="postForm(this);" data-toggle="toggle">
+          {{ light.name }}
+        </label>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+  </body>
+</html>
+
+<script>
+function postForm(light) {
+  /* Create a form and push the light parameter on change. */
+
+  var form = document.createElement("form");
+  form.setAttribute("method", "post");
+  form.setAttribute("action", "/");
+
+  var light_id = document.createElement("input");
+  light_id.setAttribute("name", "id");
+  light_id.setAttribute("value", light.id);
+  form.appendChild(light_id);
+
+  var light_state = document.createElement("input");
+  light_state.setAttribute("name", "state");
+  light_state.setAttribute("value", light.checked);
+  form.appendChild(light_state);
+
+  document.body.appendChild(form);
+  form.submit();
+}
+</script>

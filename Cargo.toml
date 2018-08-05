@@ -1,0 +1,16 @@
+[package]
+name = "hue_ihm"
+version = "0.1.0"
+authors = ["matthieu <matthieu.gouel@gmail.com>"]
+
+[dependencies]
+rocket = "0.3.15"
+rocket_codegen = "0.3.15"
+
+[dependencies.rocket_contrib]
+version = "*"
+default-features = false
+features = ["tera_templates"]
+
+[dependencies.philipshue]
+git = 'https://github.com/matthieugouel/philipshue'
